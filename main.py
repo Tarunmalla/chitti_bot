@@ -23,7 +23,7 @@ async def on_ready():
 
 @bot.command()
 async def chitti(msg):
-    await msg.send(f'Yes {msg.author} , Chitti is here to server you. use !help to know more about me..')
+    await msg.send(f'Yes {msg.author} , Chitti is here to server you. use !help to know more about me.. ')
 
 
 @bot.command()
@@ -46,31 +46,45 @@ async def ratings(msg):
     """
     to get user ratings in the codeforces
     """
-    await msg.send(handle_ratings())
+    if msg.channel.name == 'contest-ratings':
+        await msg.send(handle_ratings())
+    else:
+        await msg.send("Please follow the ruless... Don't disturb me!")
+
 
 @bot.command()
 async def leetcode(msg):
     """
     to get leetcode stats 
     """
-    embedVar = discord.Embed(title="Leetcode stats", description=user_info(), color=0x00ff00)
-    await msg.send(embed=embedVar)
+    if msg.channel.name == 'contest-ratings':
+        embedVar = discord.Embed(title="Leetcode stats", description=user_info(), color=0x00ff00)
+        await msg.send(embed=embedVar)
+    else:
+        await msg.send("Please follow the ruless... Don't disturb me!")
+
 
 @bot.command()
 async def sethandle(msg,handle):
     """
     to add handle to the database
     """
-    req = add_cf_handle(msg.author.name,handle)
-    await msg.send(req)
+    if msg.channel.name == "set-handle":
+        req = add_cf_handle(msg.author.name,handle)
+        await msg.send(req)
+    else:
+        await msg.send("Please follow the ruless... Don't disturb me!")
 
 @bot.command()
 async def setleetcode(msg,handle):
     """
     to add handle to the database
     """
-    req = add_leetcode_handle(msg.author.name,handle)
-    await msg.send(req)
+    if msg.channel.name == "set-handle":
+        req = add_leetcode_handle(msg.author.name,handle)
+        await msg.send(req)
+    else:
+        await msg.send("Please follow the ruless... Don't disturb me!")
 
 
 load_dotenv()
