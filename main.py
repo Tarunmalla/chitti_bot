@@ -4,9 +4,11 @@ from discord import message
 from discord import client
 from discord.ext import commands
 from discord.flags import Intents
-from codeforces.ratings import get_handle_info
+from codeforces.ratings import handle_ratings
 from leetcode.prob_count  import user_info
 from dotenv import load_dotenv
+from ext.handles import add_cf_handle,add_leetcode_handle
+
 
 # Intents are required for receiving certain events
 intents = discord.Intents.default()
@@ -40,18 +42,36 @@ async def activate(msg):
 # Run the bot
 
 @bot.command()
-async def ratings(msg,handle_name):
+async def ratings(msg):
     """
     to get user ratings in the codeforces
     """
-    await msg.send(get_handle_info(handle_name))
+    await msg.send(handle_ratings())
 
 @bot.command()
-async def leetcode(msg,handle):
+async def leetcode(msg):
     """
     to get leetcode stats 
     """
-    await msg.send(user_info(handle))
+    embedVar = discord.Embed(title="Leetcode stats", description=user_info(), color=0x00ff00)
+    await msg.send(embed=embedVar)
+
+@bot.command()
+async def sethandle(msg,handle):
+    """
+    to add handle to the database
+    """
+    req = add_cf_handle(msg.author.name,handle)
+    await msg.send(req)
+
+@bot.command()
+async def setleetcode(msg,handle):
+    """
+    to add handle to the database
+    """
+    req = add_leetcode_handle(msg.author.name,handle)
+    await msg.send(req)
+
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
