@@ -4,7 +4,7 @@ from discord import message
 from discord import client
 from discord.ext import commands
 from discord.flags import Intents
-from codeforces.ratings import handle_ratings
+from codeforces.ratings import handle_ratings, user_submissions
 from leetcode.prob_count  import user_info
 from dotenv import load_dotenv
 from ext.handles import add_cf_handle,add_leetcode_handle
@@ -51,6 +51,15 @@ async def ratings(msg):
     else:
         await msg.send("Please follow the ruless... Don't disturb me!")
 
+@bot.command()
+async def submissions(msg):
+    """
+    to get user recent submissions
+    """
+    if msg.channel.name == 'codeforces':
+        await msg.send(user_submissions())
+    else:
+        await msg.send("Please follow the ruless... Don't disturb me!")
 
 @bot.command()
 async def leetcode(msg):
