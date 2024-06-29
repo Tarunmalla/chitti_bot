@@ -9,6 +9,31 @@ from leetcode.prob_count  import user_info
 from dotenv import load_dotenv
 from ext.handles import add_cf_handle,add_leetcode_handle
 
+#Delete any user from here 
+
+# import sqlite3
+
+# conn = sqlite3.connect('handles.db')
+# c = conn.cursor()
+
+# print("Before deletion:")
+# c.execute("SELECT * FROM leetcode_handles")
+# rows = c.fetchall()
+# for row in rows:
+#     print(row)
+
+# c.execute("DELETE FROM leetcode_handles WHERE handle = 'handle_name'")
+# conn.commit()
+
+# print("\nAfter deletion:")
+# c.execute("SELECT * FROM leetcode_handles")
+# rows = c.fetchall()
+# for row in rows:
+#     print(row)
+
+# conn.close()
+
+
 
 # Intents are required for receiving certain events
 intents = discord.Intents.default()
@@ -67,7 +92,8 @@ async def leetcode(msg):
     to get leetcode stats 
     """
     if msg.channel.name == 'contest-ratings':
-        embedVar = discord.Embed(title="Leetcode stats", description=user_info(), color=0x00ff00)
+        table = user_info()
+        embedVar = discord.Embed(title="Leetcode stats", description=f"```{table}```", color=0x00ff00)
         await msg.send(embed=embedVar)
     else:
         await msg.send("Please follow the ruless... Don't disturb me!")

@@ -1,10 +1,10 @@
 import requests
 import sqlite3
 import pandas as pd
-
-df=pd.DataFrame(columns=['Handle','ALL','Easy','Medium','Hard'])
+from table2ascii import table2ascii as t2a, PresetStyle
 
 def user_info():
+    df=pd.DataFrame(columns=['Handle','ALL','Easy','Medium','Hard'])
     conn=sqlite3.connect("handles.db")
     c=conn.cursor()
     c.execute("SELECT handle FROM leetcode_handles")
@@ -31,6 +31,7 @@ def user_info():
         response = requests.post(url, json={'query': query})
         data = response.json()
         acSubmissionNum = data['data']['matchedUser']['submitStats']['acSubmissionNum']
+        print(acSubmissionNum)
         handler_info = []
         for item in acSubmissionNum:
             if 'count' in item:
@@ -38,5 +39,15 @@ def user_info():
                 handler_info.append(info)
         handler_info.insert(0,handle[0])
         df.loc[len(df.index)] = handler_info
-    return df
+        
+    table = convert_to_table(df)
+    # print(table)
+    return table
 
+def convert_to_table(df):
+    table = t2a(
+        header=list(df.columns),
+        body=df.values.tolist(),
+        style=PresetStyle.thin_compact
+    )
+    return table
