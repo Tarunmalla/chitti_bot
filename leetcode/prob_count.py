@@ -32,7 +32,7 @@ def user_info():
         response = requests.post(url, json={'query': query})
         data = response.json()
         acSubmissionNum = data['data']['matchedUser']['submitStats']['acSubmissionNum']
-        print(acSubmissionNum)
+        # print(acSubmissionNum)
         handler_info = []
         for item in acSubmissionNum:
             if 'count' in item:
