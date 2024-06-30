@@ -8,9 +8,9 @@ from codeforces.ratings import handle_ratings, user_submissions
 from leetcode.prob_count  import user_info
 from dotenv import load_dotenv
 from ext.handles import add_cf_handle,add_leetcode_handle
-<<<<<<< HEAD
+
 from keep_alive import keep_alive
-=======
+
 
 #Delete any user from here 
 
@@ -37,7 +37,6 @@ from keep_alive import keep_alive
 # conn.close()
 
 
->>>>>>> 75e0d33a34f5640558091aded58792927c1b33c7
 
 # Intents are required for receiving certain events
 intents = discord.Intents.default()
@@ -96,15 +95,9 @@ async def leetcode(msg):
     to get leetcode stats 
     """
     if msg.channel.name == 'contest-ratings':
-<<<<<<< HEAD
-        # embedVar = discord.Embed(title="Leetcode stats", description=user_info(), color=0x00ff00)
-        # await msg.send(embed=embedVar)
-        await msg.send(user_info()) 
-=======
         table = user_info()
         embedVar = discord.Embed(title="Leetcode stats", description=f"```{table}```", color=0x00ff00)
         await msg.send(embed=embedVar)
->>>>>>> 75e0d33a34f5640558091aded58792927c1b33c7
     else:
         await msg.send("Please follow the ruless... Don't disturb me!")
 
