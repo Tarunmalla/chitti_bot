@@ -1,7 +1,7 @@
 import requests
 import sqlite3
 import pandas as pd
-
+from table2ascii import table2ascii as t2a,PresetStyle
 df=pd.DataFrame(columns=['Handle','ALL','Easy','Medium','Hard'])
 
 def user_info():
@@ -39,4 +39,12 @@ def user_info():
         handler_info.insert(0,handle[0])
         df.loc[len(df.index)] = handler_info
     return df
+    # header=df.columns.tolist()
+    # body=df.values.tolist()
+    # output=t2a(
+    #     header=header,
+    #     body=body,
+    #     style=PresetStyle.think_compact
+    # )
+    # return output
 

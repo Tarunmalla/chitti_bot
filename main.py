@@ -8,7 +8,7 @@ from codeforces.ratings import handle_ratings
 from leetcode.prob_count  import user_info
 from dotenv import load_dotenv
 from ext.handles import add_cf_handle,add_leetcode_handle
-
+from keep_alive import keep_alive
 
 # Intents are required for receiving certain events
 intents = discord.Intents.default()
@@ -58,8 +58,9 @@ async def leetcode(msg):
     to get leetcode stats 
     """
     if msg.channel.name == 'contest-ratings':
-        embedVar = discord.Embed(title="Leetcode stats", description=user_info(), color=0x00ff00)
-        await msg.send(embed=embedVar)
+        # embedVar = discord.Embed(title="Leetcode stats", description=user_info(), color=0x00ff00)
+        # await msg.send(embed=embedVar)
+        await msg.send(user_info()) 
     else:
         await msg.send("Please follow the ruless... Don't disturb me!")
 
@@ -67,7 +68,7 @@ async def leetcode(msg):
 @bot.command()
 async def sethandle(msg,handle):
     """
-    to add handle to the database
+    to add codeforces handle to the database
     """
     if msg.channel.name == "set-handle":
         req = add_cf_handle(msg.author.name,handle)
@@ -78,7 +79,7 @@ async def sethandle(msg,handle):
 @bot.command()
 async def setleetcode(msg,handle):
     """
-    to add handle to the database
+    to add leetcode handle to the database
     """
     if msg.channel.name == "set-handle":
         req = add_leetcode_handle(msg.author.name,handle)
@@ -88,5 +89,6 @@ async def setleetcode(msg,handle):
 
 
 load_dotenv()
+keep_alive()
 TOKEN = os.getenv('DISCORD_TOKEN')
 bot.run(TOKEN)
